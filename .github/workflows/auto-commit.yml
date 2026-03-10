@@ -1,0 +1,26 @@
+name: Daily Auto Commit
+
+on:
+  schedule:
+    - cron: "0 18 * * *"
+  workflow_dispatch:
+
+jobs:
+  auto-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Update log file
+        run: |
+          echo "Commit on $(date)" >> log.txt
+
+      - name: Commit and push
+        run: |
+          git config --global user.name "Rahul Goswami"
+          git config --global user.email "therahulgoswami99@gmail.com"
+          git add .
+          git commit -m "Daily automatic commit"
+          git push
